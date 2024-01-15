@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100576680317",
+    "project_id": "fastclock-cc8d3",
+    "storage_bucket": "fastclock-cc8d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100576680317:android:a3af6537eb2597780b5414",
+        "android_client_info": {
+          "package_name": "com.example.fastclock2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlGqmZhbyRUc1BvKn8ZRUgxdRCc5uE60E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
