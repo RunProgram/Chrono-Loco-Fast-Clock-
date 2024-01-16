@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'clockface.dart';
 
 class TimePage extends StatefulWidget{
    TimePage({Key? key, required this.timeOfDay, required this.speed}) : super(key: key);
@@ -58,8 +58,6 @@ class _TimePageState extends State<TimePage>{
 
  @override
   Widget build(BuildContext context) {
-    String _period = time == DayPeriod.am ? "AM" : "PM";
-    
     hour = time.hour;
     minute = time.minute;
 
@@ -68,7 +66,8 @@ class _TimePageState extends State<TimePage>{
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('L&N EK Division Time'),
+        title: const Text('Operation Session Time'),
+        backgroundColor: const Color(0xFFD8D8D8,),
       ),
       body: Center(
         child: Column(
@@ -77,15 +76,14 @@ class _TimePageState extends State<TimePage>{
 
           //Text("Current Time"),
 
-           Row(
+           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 sHour + ":" + sMinute,
-                style: TextStyle(fontSize: 100),
+                style: const TextStyle(fontSize: 100),
               ),
-              SizedBox(width: 5),
-              Text(_period),
+              ClockFace(hour: hour, minute: minute),
             ],
            ),
           ],

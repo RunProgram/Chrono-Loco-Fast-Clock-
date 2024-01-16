@@ -16,6 +16,16 @@ class _HomePageState extends State<HomePage>{
 
   int speed = 1;
 
+  String sMinute = "";
+  String sHour = "";
+
+  @override
+  void initState(){
+    super.initState();
+    sHour = _timeOfDay.hour.toString().padLeft(2, "0");
+    sMinute = _timeOfDay.minute.toString().padLeft(2, "0");
+  }
+
   void _showTimePicker(){
     showTimePicker(
       context: context,
@@ -27,6 +37,9 @@ class _HomePageState extends State<HomePage>{
           }
 
           _timeOfDay = value;
+
+          sHour = _timeOfDay.hour.toString().padLeft(2, "0");
+          sMinute = _timeOfDay.minute.toString().padLeft(2, "0");
           
       });
     });
@@ -51,10 +64,12 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context){
     return Scaffold(
       body: Center(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
+            Column(children: [
+              IconButton(
               onPressed: _showTimePicker,
               icon: const Icon(
                 Icons.access_time,
@@ -66,9 +81,10 @@ class _HomePageState extends State<HomePage>{
              // ),
               color: Colors.black,
             ),
-
-            Column(children: [
+            Text('Start Time: ' + sHour + ':' + sMinute),
+            ],),
             
+            Column(children: [
             const Icon(
               Icons.speed,
               size: 100,
@@ -92,10 +108,11 @@ class _HomePageState extends State<HomePage>{
             
             ],),
             
-            IconButton(
+            Column(children: [
+              IconButton(
               onPressed: nextPage,
               icon: const Icon(
-                Icons.play_circle_outline,
+                Icons.train_outlined,
               ),
               iconSize: 100,
               //child: const Padding(
@@ -103,7 +120,11 @@ class _HomePageState extends State<HomePage>{
               //  child: Text('START', style: TextStyle(color: Colors.white, fontSize: 30)),
               //),
               color: Colors.black,
-            )
+            ),
+
+            Text("Start Clock"),
+
+            ],)
           ],
         ),
       ),
