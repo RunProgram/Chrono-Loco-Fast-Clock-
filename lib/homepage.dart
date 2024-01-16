@@ -94,10 +94,13 @@ class _HomePageState extends State<HomePage>{
             DropdownButton(
               items: const [
                 DropdownMenuItem(child: Text("1:1"), value: 1),
+                DropdownMenuItem(child: Text("2:1"), value: 2),
+                DropdownMenuItem(child: Text("3:1"), value: 3),
+                DropdownMenuItem(child: Text("4:1"), value: 4),
                 DropdownMenuItem(child: Text("5:1"), value: 5),
+                DropdownMenuItem(child: Text("6:1"), value: 6),
                 DropdownMenuItem(child: Text("10:1"), value: 10),
-                DropdownMenuItem(child: Text("20:1"), value: 20),
-                DropdownMenuItem(child: Text("30:1"), value: 30),
+                DropdownMenuItem(child: Text("12:1"), value: 12),
               ],
               value: speed,
               onChanged: selectSpeed,

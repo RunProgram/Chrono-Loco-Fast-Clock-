@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'clockface.dart';
 
@@ -18,6 +19,10 @@ class _TimePageState extends State<TimePage>{
   int minute;
   TimeOfDay time;
   int speed;
+  
+
+  /* DateTime bgTime = DateTime.now();
+  DateTime startTime = DateTime.now(); */
 
   TimeOfDay addTime(int hour, int minute){
     if (minute == 0) {
@@ -39,22 +44,49 @@ class _TimePageState extends State<TimePage>{
     double test = 0;
     Timer.periodic(Duration(seconds: 1), (_) { 
       if(mounted){
-        test += speed/60.0;
-        print("new val: ${test}");
-        if(test % 1 == 0){
+        test += speed/60;
+        test = double.parse(test.toStringAsFixed(3));
+        //print("new val: ${test}");
+        if(test >= 1){
           setState(() => time = addTime(0, test.toInt()));
           test = 0;
         }
       }
+
+
     });
   }
+
+ 
+  /* @override
+  void dispose(){
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  } */
 
   @override
   void initState(){
     super.initState();
-
+    //WidgetsBinding.instance.addObserver(this);
     startTimer();
   }
+
+  /* @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    super.didChangeAppLifecycleState(state);
+
+    if(state == AppLifecycleState.inactive || state == AppLifecycleState.detached) return;
+
+    final isBackground = state == AppLifecycleState.paused;
+
+    if(isBackground){
+      bgTime = DateTime.now();
+      print("IN BACKGROUND!");
+    }
+    else{
+      print("IN FOREGROUND");
+    }
+  } */
 
  @override
   Widget build(BuildContext context) {
