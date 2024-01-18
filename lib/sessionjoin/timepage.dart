@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'clockface.dart';
+import '../clockdesign/clockface.dart';
 
 class TimePage extends StatefulWidget{
    TimePage({Key? key, required this.timeOfDay, required this.speed}) : super(key: key);
