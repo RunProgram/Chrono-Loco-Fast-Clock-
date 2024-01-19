@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fastclock2/sessioncreate/timepagecreate.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -19,10 +22,19 @@ class StartPageState extends State<StartPage> {
   TimeOfDay time;
   int speed;
   String code;
+  int users = 0;
+
+
+  @override
+  void initState(){
+    super.initState();
+    getUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    getUsers();
+    return Scaffold (
       appBar: AppBar(
         title: const Text('Key & Start'),
         backgroundColor: const Color(0xFFD8D8D8,),
@@ -33,8 +45,9 @@ class StartPageState extends State<StartPage> {
           children: [
             Text('Key: ' + code, style: TextStyle(color: Colors.black, fontSize: 50)),
 
-            Text('Users connected: 0', style: TextStyle(color: Colors.black, fontSize: 30)),
+            Text('Users connected: $users', style: TextStyle(color: Colors.black, fontSize: 30)),
 
+            //Text('Users connected: $users', style: TextStyle(color: Colors.black, fontSize: 30)),
             ElevatedButton(
               style: TextButton.styleFrom(
                 textStyle: const TextStyle(fontSize: 30),
@@ -43,13 +56,23 @@ class StartPageState extends State<StartPage> {
               onPressed: createPage,
               child: const Text('Start Session!', style: TextStyle(color: Colors.black,)),
             ),
-
           ],
         ),
       ),
     );
   }
 
+
+
+  void getUsers() async{
+    var info = await FirebaseFirestore.instance.collection('session').where('key', isEqualTo: code).get();
+    var data = info.docs.first.data();
+    if(mounted){
+      setState((){
+      users = data['user'];
+    });
+    }  
+  }
 
   void createPage(){
     Navigator.push(

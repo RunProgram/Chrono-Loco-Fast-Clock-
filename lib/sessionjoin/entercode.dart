@@ -1,4 +1,6 @@
+import 'package:bottom_picker/bottom_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fastclock2/sessionjoin/awaitstart.dart';
 import 'package:fastclock2/sessionjoin/timepage.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -59,6 +61,27 @@ class EnterCodeState extends State<EnterCode> {
                   setState((){
                     wrong = false;
                   });
+
+                  var info = await FirebaseFirestore.instance.collection('session').where('key', isEqualTo: keyController.text).get();
+
+                  var data = info.docs.first.data();
+                  
+                  int tempHour = data['hour'];
+                  int tempMinute = data['minute'];
+                  int tempSpeed = data['speed'];
+                  int tempUser = data['user'];
+
+                  var docId;
+
+                  info.docs.forEach((element){
+                    docId = element.id;
+                  });
+
+                  await FirebaseFirestore.instance.collection('session').doc(docId).update({'user': tempUser+1});
+
+                  time = TimeOfDay(hour: tempHour, minute: tempMinute);
+                  speed = tempSpeed;
+
                   nextPage();
                 }
                 else{
@@ -79,9 +102,10 @@ class EnterCodeState extends State<EnterCode> {
 
 
   void nextPage() async{
+  
     Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TimePage(timeOfDay: time, speed: speed,)),
+            MaterialPageRoute(builder: (context) => AwaitStart(time: time, speed: speed, code: keyController.text)),
       );
   }
 

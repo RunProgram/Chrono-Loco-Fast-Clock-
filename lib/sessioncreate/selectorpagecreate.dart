@@ -32,7 +32,6 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
     super.initState();
     sHour = _timeOfDay.hour.toString().padLeft(2, "0");
     sMinute = _timeOfDay.minute.toString().padLeft(2, "0");
-    key = generateKey();
   }
 
 
@@ -63,7 +62,7 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
   }
 
   void createPage(){
-
+    key = generateKey();
     CollectionReference collRef = FirebaseFirestore.instance.collection('session');
     collRef.add({
       'key': key,
@@ -71,6 +70,7 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
       'minute': _timeOfDay.minute,
       'start': false,
       'speed': speed,
+      'user' : 1,
     });
 
     Navigator.push(
