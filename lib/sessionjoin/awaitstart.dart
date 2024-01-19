@@ -32,8 +32,7 @@ class AwaitStartState extends State<AwaitStart>{
   Widget build(BuildContext context) {
     getUsers();
     checkStart();
-    
-
+  
     return Scaffold(
       appBar: AppBar(
         title: const Text('Waiting...'),

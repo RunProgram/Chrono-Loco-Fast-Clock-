@@ -74,7 +74,18 @@ class StartPageState extends State<StartPage> {
     }  
   }
 
-  void createPage(){
+  void createPage() async{
+
+    var info = await FirebaseFirestore.instance.collection('session').where('key', isEqualTo: code).get();
+
+    var docId;
+
+    info.docs.forEach((element){
+    docId = element.id;
+    });
+
+    await FirebaseFirestore.instance.collection('session').doc(docId).update({'start': true});
+
     Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => TimePageCreate(timeOfDay: time, speed: speed,)),
