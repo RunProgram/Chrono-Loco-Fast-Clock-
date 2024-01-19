@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fast Clock',
-      theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(206, 231, 231, 231),),
+      theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(206, 192, 207, 218),),
       home: HomePage(),
     );
   }

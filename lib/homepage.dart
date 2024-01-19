@@ -1,5 +1,5 @@
 import 'package:fastclock2/sessioncreate/selectorpagecreate.dart';
-import 'package:fastclock2/sessionjoin/selectorpage.dart';
+import 'package:fastclock2/sessionjoin/entercode.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 
@@ -45,7 +45,7 @@ class HomePageState extends State<HomePage> {
   void joinPage(){
     Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SelectorPage()),
+            MaterialPageRoute(builder: (context) => EnterCode()),
       );
   }
 

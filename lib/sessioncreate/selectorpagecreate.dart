@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:math';
 import 'dart:convert';
 import 'package:fastclock2/firebase_options.dart';
+import 'package:fastclock2/sessioncreate/startcode.dart';
 import 'package:fastclock2/sessioncreate/timepagecreate.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +20,8 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
   
   TimeOfDay _timeOfDay = const TimeOfDay(hour: 8, minute: 30);
 
+  String key = "";
+
   int speed = 1;
 
   String sMinute = "";
@@ -29,6 +32,7 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
     super.initState();
     sHour = _timeOfDay.hour.toString().padLeft(2, "0");
     sMinute = _timeOfDay.minute.toString().padLeft(2, "0");
+    key = generateKey();
   }
 
 
@@ -62,7 +66,7 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
 
     CollectionReference collRef = FirebaseFirestore.instance.collection('session');
     collRef.add({
-      'key': generateKey(),
+      'key': key,
       'hour': _timeOfDay.hour,
       'minute': _timeOfDay.minute,
       'start': false,
@@ -71,13 +75,13 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
 
     Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TimePageCreate(timeOfDay: _timeOfDay, speed: speed)),
+            MaterialPageRoute(builder: (context) => StartPage(time: _timeOfDay, speed: speed, code: key)),
           );
   }
 
   String generateKey(){
     var random = Random.secure();
-    var values = List<int>.generate(2, (i) => random.nextInt(255));
+    var values = List<int>.generate(3, (i) => random.nextInt(255));
     return base64UrlEncode(values);
   }
 
@@ -152,7 +156,7 @@ class _SelectorPageCreateState extends State<SelectorPageCreate>{
               color: Colors.black,
             ),
 
-            Text("Start Clock & Create"),
+            Text("Create Session"),
 
             ],)
           ],
