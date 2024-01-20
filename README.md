@@ -1,4 +1,4 @@
-# Fast Clock
+# Chrono Loco
 
 A Flutter project.
 
