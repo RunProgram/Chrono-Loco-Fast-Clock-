@@ -1,8 +1,7 @@
-import 'package:fastclock2/analogcircle.dart';
-import 'package:fastclock2/hourpointer.dart';
-import 'package:fastclock2/minutepointer.dart';
+import 'package:fastclock2/clockdesign/analogcircle.dart';
+import 'package:fastclock2/clockdesign/hourpointer.dart';
+import 'package:fastclock2/clockdesign/minutepointer.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class ClockFace extends StatefulWidget {
   ClockFace({Key? key, required this.hour, required this.minute}) : super(key: key);
