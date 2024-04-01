@@ -39,6 +39,7 @@ dependencies:
   bottom_picker: ^2.3.3
   firebase_core: ^2.24.2
   cloud_firestore: ^4.3.2
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:
