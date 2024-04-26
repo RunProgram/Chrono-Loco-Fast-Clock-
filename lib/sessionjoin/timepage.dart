@@ -31,7 +31,7 @@ class _TimePageState extends State<TimePage> with WidgetsBindingObserver{
   /* DateTime bgTime = DateTime.now();
   DateTime startTime = DateTime.now(); */
 
-  @override
+ /*  @override
   void didChangeAppLifecycleState(AppLifecycleState state) async{
     super.didChangeAppLifecycleState(state);
     switch(state){
@@ -59,7 +59,17 @@ class _TimePageState extends State<TimePage> with WidgetsBindingObserver{
         print("HIDDEN");
         break;
     }
+  } */
+
+@override
+void didChangeAppLifecycleState(AppLifecycleState state) {
+  super.didChangeAppLifecycleState(state);
+  if (state == AppLifecycleState.paused) {
+    print('App is paused');
+  } else if (state == AppLifecycleState.resumed) {
+    print('App is resumed');
   }
+}
 
   TimeOfDay addTime(int hour, int minute){
     if (minute == 0) {
@@ -95,11 +105,11 @@ class _TimePageState extends State<TimePage> with WidgetsBindingObserver{
   }
 
  
-  /* @override
+   @override
   void dispose(){
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  } */
+  } 
 
   @override
   void initState(){
@@ -108,29 +118,6 @@ class _TimePageState extends State<TimePage> with WidgetsBindingObserver{
     //WidgetsBinding.instance.addObserver(this);
     startTimer();
   }
-
-  @override
-  void dispose(){
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  /* @override
-  void didChangeAppLifecycleState(AppLifecycleState state){
-    super.didChangeAppLifecycleState(state);
-
-    if(state == AppLifecycleState.inactive || state == AppLifecycleState.detached) return;
-
-    final isBackground = state == AppLifecycleState.paused;
-
-    if(isBackground){
-      bgTime = DateTime.now();
-      print("IN BACKGROUND!");
-    }
-    else{
-      print("IN FOREGROUND");
-    }
-  } */
 
  @override
   Widget build(BuildContext context) {
