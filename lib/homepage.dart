@@ -1,3 +1,4 @@
+import 'package:fastclock2/offline/offlineselect.dart';
 import 'package:fastclock2/sessioncreate/selectorpagecreate.dart';
 import 'package:fastclock2/sessionjoin/entercode.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,15 @@ class HomePageState extends State<HomePage> {
                 textStyle: const TextStyle(fontSize: 30),
                 //backgroundColor: Colors.black,
               ),
+              onPressed: offlinePage,
+              child: const Text('Create Offline Session', style: TextStyle(color: Colors.black,)),
+            ),
+
+            ElevatedButton(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(fontSize: 30),
+                //backgroundColor: Colors.black,
+              ),
               onPressed: joinPage,
               child: const Text('Join Session', style: TextStyle(color: Colors.black,)),
             ),
@@ -53,6 +63,13 @@ class HomePageState extends State<HomePage> {
     Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SelectorPageCreate()),
+      );
+  }
+
+  void offlinePage(){
+    Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => OfflineSelect()),
       );
   }
 

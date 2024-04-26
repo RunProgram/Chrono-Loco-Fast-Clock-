@@ -1,7 +1,6 @@
-import 'package:bottom_picker/bottom_picker.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fastclock2/sessionjoin/awaitstart.dart';
-import 'package:fastclock2/sessionjoin/timepage.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 
