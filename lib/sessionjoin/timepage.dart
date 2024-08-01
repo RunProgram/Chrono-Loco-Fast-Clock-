@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../clockdesign/clockface.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TimePage extends StatefulWidget{
    TimePage({Key? key, required this.timeOfDay, required this.speed}) : super(key: key);
@@ -22,102 +21,30 @@ class _TimePageState extends State<TimePage> with WidgetsBindingObserver{
 
   var state = AppLifecycleState;
 
-  final storage = FlutterSecureStorage();
-
-  var pausedTime = DateTime.now();
-  var resumedTime = DateTime.now();
 
 
-  /* DateTime bgTime = DateTime.now();
-  DateTime startTime = DateTime.now(); */
-
- /*  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async{
-    super.didChangeAppLifecycleState(state);
-    switch(state){
-      case AppLifecycleState.paused:
-        pausedTime = DateTime.now();
-        storage.write(key: 'pause', value: pausedTime.toString());
-        print('paused');
-        break;
-      case AppLifecycleState.inactive:
-        print('inactive');
-        break;
-      case AppLifecycleState.resumed:
-        resumedTime = DateTime.now();
-        String tempPause = await storage.read(key: 'pause') ?? '';
-        var dt = DateTime.parse(tempPause);
-        var difference = resumedTime.difference(dt);
-        print("time added " + (difference.inSeconds/60).round().toString());
-        addTime(0, 50);
-        print('resumed');
-        break;
-      case AppLifecycleState.detached:
-        print('detached');
-        break;
-      case AppLifecycleState.hidden:
-        print("HIDDEN");
-        break;
-    }
-  } */
-
-@override
-void didChangeAppLifecycleState(AppLifecycleState state) {
-  super.didChangeAppLifecycleState(state);
-  if (state == AppLifecycleState.paused) {
-    print('App is paused');
-  } else if (state == AppLifecycleState.resumed) {
-    print('App is resumed');
-  }
-}
-
-  TimeOfDay addTime(int hour, int minute){
-    if (minute == 0) {
-      return time;
-    } else {
-      int mofd = this.hour * 60 + this.minute;
-      int newMofd = ((minute % 1440) + mofd + 1440) % 1440;
-      if (mofd == newMofd) {
-        return time;
-      } else {
-        int newHour = newMofd ~/ 60;
-        int newMinute = newMofd % 60;
-        return TimeOfDay(hour: newHour, minute: newMinute);
-      }
-    }
-  }
-
-  void startTimer(){
-    double test = 0;
-    Timer.periodic(Duration(seconds: 1), (_) { 
-      if(mounted){
-        test += speed/60;
-        test = double.parse(test.toStringAsFixed(3));
-        //print("new val: ${test}");
-        if(test >= 1){
-          setState(() => time = addTime(0, test.toInt()));
-          test = 0;
-        }
-      }
-
-
+  void addTime(int minutes, int seconds) {
+    setState(() {
+      minute += minutes;
+      hour += (minute + seconds ~/ 60) ~/ 60;
+      minute = (minute + seconds ~/ 60) % 60;
     });
   }
 
- 
-   @override
-  void dispose(){
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  } 
-
-  @override
-  void initState(){
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    //WidgetsBinding.instance.addObserver(this);
-    startTimer();
+  void startTimer() {
+    double test = 0;
+    Timer.periodic(Duration(seconds: 1), (_) {
+      if (mounted) {
+        test += speed / 60;
+        test = double.parse(test.toStringAsFixed(3));
+        if (test >= 1) {
+          setState(() => addTime(0, test.toInt()));
+          test = 0;
+        }
+      }
+    });
   }
+
 
  @override
   Widget build(BuildContext context) {
@@ -126,8 +53,6 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
 
     String sMinute = minute.toString().padLeft(2, "0");
     String sHour = hour.toString().padLeft(2, "0");
-
-    //didChangeAppLifecycleState(state as AppLifecycleState);
 
     return Scaffold(
       appBar: AppBar(
