@@ -38,6 +38,3 @@ Model railroaders often use fast clocks to simulate time passing more quickly du
 ## 📷 Screenshots
 
 
-## 📝 License
-
-MIT License. See `LICENSE` for details.
